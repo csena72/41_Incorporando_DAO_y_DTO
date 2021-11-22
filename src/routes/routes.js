@@ -1,13 +1,12 @@
 const loginController = require('../controllers/login');
 const registerController = require('../controllers/register');
-const { productoController } = require('../controllers');
-const mensajeController = require('../controllers/mensaje');
 const infoController = require('../controllers/info');
+
+const { productoController, mensajeController  } = require('../controllers');
 
 module.exports = (router) => {
 
     router
-
     .get('/info', infoController.infoRender)
     .get('/randoms', infoController.randoms)
     .get('/', loginController.loginRender)

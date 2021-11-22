@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/csena72/41_Incorporando_DAO_y_DTO#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",

@@ -16,7 +16,9 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 
 const ProductoService = require("./services/producto");
-const MensajeService = require("./services/mensajes");
+
+const axios = require('axios');
+
 const { Mongoose } = require("mongoose");
 const MongoStore = require("connect-mongo");
 
@@ -410,11 +412,10 @@ if (SERVER_MODE === "cluster" && cluster.isMaster) {
   return productos;
   }
 
-  let productsData = getProductsData();
+  let productsData = getProductsData.data;
 
   const getProduct = function(args) {
   let _id = args._id;
- // console.log(productsData);
   return productsData.filter(product => {
       return product._id == _id;
   })[0];
@@ -454,13 +455,15 @@ if (SERVER_MODE === "cluster" && cluster.isMaster) {
   // ------------------------------------------------------------------------------
 
   io.on("connection", async (socket) => {
-    productoService = new ProductoService();
-    mensajeService = new MensajeService();
-    let productosWs = await productoService.getAllProductos();
-    let mensajes = await mensajeService.getAllMensajes();
+
+    const responseProducts = await axios.get('http://localhost:8080/api/productos');
+    const responseMsg = await axios.get('http://localhost:8080/api/mensajes');
+
+    let productos =  responseProducts.data;
+    let mensajes =  responseMsg.data;
 
     socket.emit("mensajes", {
-      mensajes: await mensajeService.getAllMensajes(),
+      mensajes: mensajes,
     });
 
     socket.on("nuevo-mensaje", async (nuevoMensaje) => {
@@ -482,10 +485,10 @@ if (SERVER_MODE === "cluster" && cluster.isMaster) {
       io.sockets.emit("recibir nuevoMensaje", [elNuevoMensaje]);
     });
 
-    io.sockets.emit("productos", await productoService.getAllProductos());
+    io.sockets.emit("productos", productos);
 
     socket.on("producto-nuevo", async (data) => {
-      await productoService.createProducto(data);
+      //await productoService.createProducto(data);
     });
   });
 
