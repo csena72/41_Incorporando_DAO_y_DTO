@@ -4,7 +4,7 @@ var exphbs = require("express-handlebars");
 const app = express();
 const router = express.Router();
 const { MONGO_URI, TIEMPO_EXPIRACION } = require("./config/globals");
-const { getConnection } = require("./dao/db/connection");
+const { getConnection } = require("./dal/dao/db/connection");
 const routes = require("./routes/routes");
 
 const session = require("express-session");
@@ -99,10 +99,10 @@ if (SERVER_MODE === "cluster" && cluster.isMaster) {
   const passport = require("passport");
   const bCrypt = require("bcrypt");
   const LocalStrategy = require("passport-local").Strategy;
-  const FacebookStrategy = require("passport-facebook").Strategy;
-  const User = require("./dao/models/usuarios");
+//  const FacebookStrategy = require("passport-facebook").Strategy;
+  const User = require("./dal/dao/models/usuarios");
 
-  loggerInfo.info(FACEBOOK_APP_ID)
+/*   loggerInfo.info(FACEBOOK_APP_ID)
   loggerInfo.info(FACEBOOK_APP_SECRET)
 
   passport.use(
@@ -153,7 +153,7 @@ if (SERVER_MODE === "cluster" && cluster.isMaster) {
       successRedirect: "/home",
       failureRedirect: "/faillogin",
     })
-  );
+  ); */
 
   passport.use(
     "login",
@@ -305,11 +305,11 @@ if (SERVER_MODE === "cluster" && cluster.isMaster) {
   app.get("/home", async (req, res) => {
     if (req.isAuthenticated()) {
 
-      let nombre = req.user.displayName
-      //let foto = req.user.photos[0].value
-      //let email = req.user.emails[0].value
-      let asunto = 'logging In'
-      let mensaje = 'Ingresó ' + nombre + ' en la fecha ' + new Date().toLocaleString() 
+/*       let nombre = req.user.displayName
+      let foto = 'sinFoto';
+      let email = 'example@example.com';
+      let asunto = 'logging In';
+      let mensaje = 'Ingresó ' + nombre + ' en la fecha ' + new Date().toLocaleString();
 
       //--------------------------------
       //Registro de ingreso por ethereal
@@ -325,7 +325,7 @@ if (SERVER_MODE === "cluster" && cluster.isMaster) {
             if(err) console.log(err)
             else console.log(info)
         });
-      });
+      }); */
 
       productoService = new ProductoService();
       let productos = await productoService.getAllProductos();
@@ -368,14 +368,15 @@ if (SERVER_MODE === "cluster" && cluster.isMaster) {
     //-------------------------------
     //Registro de egreso por ethereal
     //-------------------------------
-    let asunto = 'logging Out'
-    let mensaje = 'Egresó ' + nombre + ' en la fecha ' + new Date().toLocaleString() 
+/*     let asunto = 'logging Out'
+    let mensaje = 'Egresó ' + nombre + ' en la fecha ' + new Date().toLocaleString()
     ethereal.enviarMail(asunto, mensaje, (err, info) => {
         if(err) console.log(err)
         else console.log(info)
 
         res.render("logout", { nombre });
-    });
+    }); */
+    res.render("logout", { nombre });
   });
 
   // ------------------------------------------------------------------------------

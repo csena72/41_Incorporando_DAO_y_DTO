@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const { MONGO_URI } = require("../../config/globals");
-const logger = require('../../logs/logger');
+const { MONGO_URI } = require("../../../config/globals");
+const logger = require('../../../logs/logger');
 
 const loggerInfo = logger.getLogger('info');
 const loggerWarn = logger.getLogger('warn');

@@ -1,5 +1,5 @@
 const moment = require("moment");
-const mensajeModel = require("../dao/models/mensajes");
+const mensajeModel = require("../dal/dao/models/mensajes");
 const { normalizeMessages, print } = require("../utils/normalizer");
 //const { v4: uuidv4 } = require("uuid");
 

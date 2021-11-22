@@ -1,6 +1,6 @@
 const loginController = require('../controllers/login');
 const registerController = require('../controllers/register');
-const productoController = require('../controllers/producto');
+const { productoController } = require('../controllers');
 const mensajeController = require('../controllers/mensaje');
 const infoController = require('../controllers/info');
 

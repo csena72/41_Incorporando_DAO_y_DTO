@@ -1,4 +1,4 @@
-const  usuarioModel = require('../dao/models/usuarios');
+const  usuarioModel = require('../dal/dao/models/usuarios');
 
 module.exports = class {
 
