@@ -366,6 +366,7 @@ if (SERVER_MODE === "cluster" && cluster.isMaster) {
 
   app.get("/logout", (req, res) => {
     let nombre = req.user.username;
+    console.log(req.user);
     req.logout();
     //-------------------------------
     //Registro de egreso por ethereal
