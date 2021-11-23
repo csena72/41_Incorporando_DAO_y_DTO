@@ -1,3 +1,5 @@
+const { productoDto } = require('../dal/dto/productoDto');
+
 const productoController = (service) => {
     const { productoService } = service;
 
@@ -9,7 +11,8 @@ const productoController = (service) => {
 
         findAllProductos: async (req, res,next) => {
             const allProductos = await productoService.getAllProductos();
-            res.json(allProductos);
+            resProducts = allProductos.map(product => productoDto(product));
+            res.json(resProducts);
         },
 
         updateProducto: async (req, res,next) => {
